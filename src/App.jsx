@@ -779,7 +779,11 @@ export default function App() {
                     src={src} 
                     className={`w-full h-full transition-all duration-[800ms] ease-out ${isHuge ? 'object-contain object-bottom drop-shadow-2xl' : 'object-cover'}`} 
                     alt="Card" 
-                    style={{ mixBlendMode: isHuge ? 'multiply' : 'normal' }} 
+                    style={{ 
+                      mixBlendMode: isHuge ? 'multiply' : 'normal',
+                      WebkitMaskImage: isHuge ? 'linear-gradient(to bottom, black 60%, transparent 95%)' : 'none',
+                      maskImage: isHuge ? 'linear-gradient(to bottom, black 60%, transparent 95%)' : 'none'
+                    }} 
                   />
                 </div>
 
