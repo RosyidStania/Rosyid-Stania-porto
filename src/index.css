@@ -1,0 +1,44 @@
+@font-face {
+  font-family: 'Mona Sans Variable';
+  src: url('/Mona-Sans.woff2') format('woff2');
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
+  font-display: swap;
+}
+
+@import "tailwindcss";
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes writeSignature {
+  0% { clip-path: polygon(-50% -50%, -50% -50%, -50% 150%, -50% 150%); }
+  100% { clip-path: polygon(-50% -50%, 150% -50%, 150% 150%, -50% 150%); }
+}
+.animate-signature {
+  animation: writeSignature 1.5s cubic-bezier(0.42, 0, 0.58, 1) forwards;
+  clip-path: polygon(-50% -50%, -50% -50%, -50% 150%, -50% 150%); /* Start hidden */
+}
+
+@keyframes flowLine {
+  0% { stroke-dashoffset: 100; }
+  100% { stroke-dashoffset: 0; }
+}
+.animate-flow {
+  animation: flowLine 2s linear infinite;
+}
+
+@keyframes comet {
+  0% { stroke-dashoffset: 2000; }
+  100% { stroke-dashoffset: -2000; }
+}
+.animate-comet {
+  stroke-dasharray: 40, 2000;
+  animation: comet 4s linear infinite;
+  stroke-linecap: round;
+}
