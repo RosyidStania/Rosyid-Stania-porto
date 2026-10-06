@@ -761,6 +761,7 @@ export default function App() {
                 zIndex: isHuge ? 40 : 60 - index,
                 opacity: (scrollPhase === 1 || isHuge) ? 1 : 0,
                 cursor: scrollPhase === 1 ? 'pointer' : 'default',
+                pointerEvents: (isHuge || scrollPhase === 1) ? 'auto' : 'none',
               }}
               onClick={scrollPhase === 1 ? () => handleCardClick(index) : undefined}
             >
@@ -774,17 +775,44 @@ export default function App() {
               >
                 
                 {/* The Image Container */}
-                <div className={`w-full relative overflow-hidden transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] ${isHuge ? 'h-full rounded-none' : 'h-[85%] rounded-2xl bg-black/5'}`}>
+                <div 
+                  className={`w-full relative overflow-hidden transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] ${isHuge ? 'h-full rounded-none' : 'h-[85%] rounded-2xl bg-black/5'}`}
+                  style={isHuge ? {
+                    WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 95%)',
+                    maskImage: 'linear-gradient(to bottom, black 60%, transparent 95%)'
+                  } : {}}
+                  onMouseMove={isHuge ? (e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+                    e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+                  } : undefined}
+                  onMouseLeave={isHuge ? (e) => {
+                    e.currentTarget.style.setProperty('--mouse-x', `-1000px`);
+                    e.currentTarget.style.setProperty('--mouse-y', `-1000px`);
+                  } : undefined}
+                >
                   <img 
                     src={src} 
                     className={`w-full h-full transition-all duration-[800ms] ease-out ${isHuge ? 'object-contain object-bottom drop-shadow-2xl' : 'object-cover'}`} 
                     alt="Card" 
                     style={{ 
-                      mixBlendMode: isHuge ? 'multiply' : 'normal',
-                      WebkitMaskImage: isHuge ? 'linear-gradient(to bottom, black 60%, transparent 95%)' : 'none',
-                      maskImage: isHuge ? 'linear-gradient(to bottom, black 60%, transparent 95%)' : 'none'
+                      mixBlendMode: isHuge ? 'multiply' : 'normal'
                     }} 
                   />
+                  {isHuge && isProfile && (
+                    <img 
+                      src="/profile-suit.png"
+                      className="absolute inset-0 w-full h-full object-contain object-bottom drop-shadow-2xl pointer-events-none"
+                      alt="Suit Reveal"
+                      style={{
+                        mixBlendMode: 'multiply',
+                        WebkitMaskImage: 'radial-gradient(circle 250px at var(--mouse-x, -1000px) var(--mouse-y, -1000px), black 40%, transparent 100%)',
+                        maskImage: 'radial-gradient(circle 250px at var(--mouse-x, -1000px) var(--mouse-y, -1000px), black 40%, transparent 100%)'
+                      }}
+                    />
+                  )}
                 </div>
 
                 {/* The Card Footer (Empty space for polaroid bottom) */}
