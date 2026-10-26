@@ -8,12 +8,91 @@
 
 @import "tailwindcss";
 
+:root {
+  --color-desk: #F6F2EC;
+  --color-paper: #FAF7F2;
+  --color-paper-pure: #FFFFFF;
+  --color-ink: #1C1A18;
+  --color-lead: #5A554E;
+  --color-line: #E7E2D9;
+  --color-accent-amber: #D47A38;
+}
+
+/* --- TYPOGRAPHY --- */
+.font-serif-editorial {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+.font-reading {
+  font-family: 'Newsreader', Georgia, serif;
+}
+.font-sans-editorial {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+.font-handwritten {
+  font-family: 'Caveat', cursive;
+}
+
+/* --- TACTILE PAPER SHADOWS --- */
+.shadow-tactile-desk {
+  box-shadow:
+    0 25px 50px -12px rgba(48, 38, 28, 0.15),
+    0 10px 20px -5px rgba(48, 38, 28, 0.08),
+    0 1px 3px rgba(48, 38, 28, 0.05);
+}
+
+.shadow-book-spine {
+  box-shadow:
+    inset 4px 0 8px rgba(0, 0, 0, 0.15),
+    inset -3px 0 6px rgba(255, 255, 255, 0.3),
+    0 8px 18px -4px rgba(45, 35, 25, 0.2);
+}
+
+.shadow-paper-float {
+  box-shadow:
+    0 15px 35px -8px rgba(40, 32, 24, 0.14),
+    0 4px 10px -2px rgba(40, 32, 24, 0.06);
+}
+
+.shadow-cup {
+  box-shadow:
+    0 20px 30px -10px rgba(50, 42, 35, 0.22),
+    0 6px 12px -3px rgba(50, 42, 35, 0.1);
+}
+
+/* Paper Grain Texture */
+.paper-grain {
+  background-color: var(--color-desk);
+  background-image: radial-gradient(rgba(45, 35, 25, 0.06) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Lined Notebook Paper */
+.notebook-ruled {
+  background-color: #FAF8F5;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    #E8E3D8 27px,
+    #E8E3D8 28px
+  );
+  line-height: 28px;
+}
+
+/* --- KEYFRAME ANIMATIONS --- */
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 .animate-marquee {
-  animation: marquee 20s linear infinite;
+  animation: marquee 24s linear infinite;
+}
+
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(0.5deg); }
+}
+.animate-gentle-float {
+  animation: gentleFloat 6s ease-in-out infinite;
 }
 
 @keyframes writeSignature {
@@ -22,15 +101,7 @@
 }
 .animate-signature {
   animation: writeSignature 1.5s cubic-bezier(0.42, 0, 0.58, 1) forwards;
-  clip-path: polygon(-50% -50%, -50% -50%, -50% 150%, -50% 150%); /* Start hidden */
-}
-
-@keyframes flowLine {
-  0% { stroke-dashoffset: 100; }
-  100% { stroke-dashoffset: 0; }
-}
-.animate-flow {
-  animation: flowLine 2s linear infinite;
+  clip-path: polygon(-50% -50%, -50% -50%, -50% 150%, -50% 150%);
 }
 
 @keyframes comet {
@@ -41,4 +112,32 @@
   stroke-dasharray: 40, 2000;
   animation: comet 4s linear infinite;
   stroke-linecap: round;
+}
+
+@keyframes stamp {
+  0% { transform: scale(2.2) rotate(-20deg); opacity: 0; }
+  60% { transform: scale(0.92) rotate(-11deg); opacity: 1; }
+  85% { transform: scale(1.05) rotate(-13deg); }
+  100% { transform: scale(1) rotate(-12deg); opacity: 1; }
+}
+.animate-stamp {
+  animation: stamp 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes paperShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.animate-paper-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: paperShimmer 3s infinite;
+}
+
+@keyframes floatBob {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+.animate-float-bob {
+  animation: floatBob 5s ease-in-out infinite;
 }
